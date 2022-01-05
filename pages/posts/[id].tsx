@@ -3,15 +3,21 @@ import {useRouter} from 'next/router'
 import styles from '../../styles/User.module.scss'
 import MainContainer from "../../components/MainContainer";
 import Link from 'next/link'
+import {NextPageContext} from "next";
+import {MyPost} from "../../interfaces/posts";
 
-export default function Post({post: serverPost}) {
+interface PostPageProps {
+    post: MyPost
+}
+
+export default function Post({post: serverPost}: PostPageProps) {
     const router = useRouter()
 
     const [post, setPost] = useState(serverPost)
 
     useEffect(() => {
         async function load() {
-            const response = await fetch(`http://localhost:4200/posts/${router.query.id}`)
+            const response = await fetch(`${process.env.API_URL}/posts/${router.query.id}`)
             const dataPost = await response.json()
             setPost(dataPost)
         }
@@ -24,14 +30,14 @@ export default function Post({post: serverPost}) {
 
     if (!post) {
         return (
-            <MainContainer>
+            <MainContainer keywords={'loading'}>
                 <p>Loading...</p>
             </MainContainer>
         )
     }
 
     return (
-        <MainContainer title={"Post page"}>
+        <MainContainer  keywords={"post"} title={"Post page"}>
             <h1>{post.title}</h1>
             <hr/>
             <p>{post.body}</p>
@@ -54,13 +60,20 @@ export default function Post({post: serverPost}) {
 
 }*/
 
+
+interface  PostNextPAgeContext extends NextPageContext {
+    query: {
+        id: string
+    }
+}
+
 // export async function getServerSideProps(context){
-export async function getServerSideProps({query, req}) {
+export async function getServerSideProps({query, req}: PostNextPAgeContext) {
     if (!req) {
         return {post: null}
     }
-    const response = await fetch(`http://localhost:4200/posts/${query.id}`)
-    const post = await response.json()
+    const response = await fetch(`${process.env.API_URL}/posts/${query.id}`)
+    const post: MyPost = await response.json()
     return {
         props: post
     }
