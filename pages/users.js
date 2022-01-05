@@ -9,7 +9,7 @@ const onLinkClick = () => {
 }
     return (
         <MainContainer keywords={'users'} title={"Users page"}>
-            <hi> Список пользователей</hi>
+            <hi> Users list </hi>
             <ul>
                 {users.map(user =>
                     <li key={user.id}>
