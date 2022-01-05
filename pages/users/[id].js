@@ -10,7 +10,7 @@ export default function User({user}) {
         <MainContainer keywords={user.name} title={"User page"} >
             <div className={styles.user}>
                 <h1>
-                    Users with id {query.id}
+                    User with id {query.id}
                 </h1>
                 <div>User name - {user.name}</div>
             </div>

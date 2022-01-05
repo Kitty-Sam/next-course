@@ -1,5 +1,4 @@
 import React from 'react';
-import A from "./A";
 import Head from "next/head";
 
 const MainContainer = ({children, keywords, title = 'Next App'}) => {
@@ -13,9 +12,7 @@ const MainContainer = ({children, keywords, title = 'Next App'}) => {
                 <title>{title} | Next </title>
             </Head>
             <nav className='navbar'>
-                <A href={"/"} text={"Home"}/>
-                <A href={"/users"} text={"Users"}/>
-                <A href={"/posts"} text={"Posts"}/>
+
             </nav>
             <main>
                 {children}
@@ -27,7 +24,7 @@ const MainContainer = ({children, keywords, title = 'Next App'}) => {
                   left: 0;
                   top: 0;
                   right: 0;
-                  background: darkblue;
+                  background: orange;
                   padding: 15px;
                 }
                 main {
