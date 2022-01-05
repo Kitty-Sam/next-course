@@ -1,12 +1,14 @@
-import {useEffect, useState} from "react";
 import Link from 'next/link'
 import MainContainer from "../components/MainContainer";
+import Router from 'next/router'
 
 const Users = ({users}) => {
 
-
+const onLinkClick = () => {
+    Router.push('/')
+}
     return (
-        <MainContainer keywords={'users'}>
+        <MainContainer keywords={'users'} title={"Users page"}>
             <hi> Список пользователей</hi>
             <ul>
                 {users.map(user =>
@@ -16,6 +18,8 @@ const Users = ({users}) => {
                         </Link>
                     </li>)}
             </ul>
+            <button onClick={onLinkClick}>Go back to home</button>
+            <button onClick={()=>{Router.push('/')}}>Go back to home inline</button>
 
         </MainContainer>
     );
@@ -23,8 +27,8 @@ const Users = ({users}) => {
 
 export default Users;
 
-export async function getStaticProps(context){
-    const response = await fetch ('https://jsonplaceholder.typicode.com/users')
+export async function getStaticProps(context) {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users')
     const users = await response.json()
     return {
         props: {users},
